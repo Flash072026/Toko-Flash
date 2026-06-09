@@ -164,7 +164,7 @@
                 `Mohon segera diproses ya, terima kasih!`;
 
             // Buat URL WhatsApp api
-            const urlWA = `https://api.whatsapp.com/send?phone=${NOMOR_WHATSAPP}&text=${encodeURIComponent(teksPesan)}`;
+            const urlWA = `https://wa.me/${NOMOR_WHATSAPP}?text=${encodeURIComponent(teksPesan)}`;
 
             // Buka tab baru menuju WhatsApp
             window.open(urlWA, '_blank');
