@@ -169,29 +169,21 @@
         function buatTautanKonfirmasi(event) {
             event.preventDefault(); 
 
-            const nama = document.getElementById('namaPembeli').value;
-            const alamat = document.getElementById('alamatPembeli').value;
-            const metode = document.getElementById('metodeBayar').value;
+            // Mengubah format pesan menjadi sangat ringkas sesuai permintaan Anda
+            const teksPesan = `halo saya order ${produkTerpilih}`;
 
-            // Pesan dibuat pendek sesuai keberhasilan tes Anda
-            const teksPesan = `Order ${produkTerpilih}. Nama: ${nama}, Alamat: ${alamat}`;
-
-            // Menyusun tautan murni whatsapp://
+            // Menggunakan pola sukses whatsapp://
             const urlWA = `whatsapp://send/?phone=${NOMOR_WHATSAPP}&text=${encodeURIComponent(teksPesan)}`;
 
-            // Mengubah isi modal menjadi tombol klik manual murni (bukan dipicu otomatis oleh script)
+            // Mengubah tampilan isi form menjadi tombol klik manual biasa
             const areaForm = document.getElementById('areaForm');
             areaForm.innerHTML = `
                 <div class="text-center py-4">
-                    <p class="text-sm text-gray-600 mb-4">Data Anda sudah siap. Silakan klik tombol di bawah untuk langsung mengirim via WhatsApp:</p>
+                    <p class="text-sm text-gray-600 mb-4">Data Anda sudah siap. Silakan klik tombol di bawah untuk mengirim ke CS:</p>
                     
                     <a href="${urlWA}" onclick="tutupFormPemesanan()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-4 rounded-lg transition duration-200 block text-center shadow-md text-lg animate-bounce">
-                        🚀 KIRIM ORDERAN KE WHATSAPP
+                        🚀 KIRIM KE WHATSAPP
                     </a>
-                    
-                    <button onclick="bukaFormPemesanan('${produkTerpilih}', '${hargaTerpilih}')" class="mt-4 text-xs text-gray-500 underline block mx-auto">
-                        Edit Data Kembali
-                    </button>
                 </div>
             `;
         }
