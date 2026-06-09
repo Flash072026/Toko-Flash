@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Toko Flash</title>
+    <!-- Tailwind CSS untuk Desain yang Cantik dan Responsif -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .modal { transition: opacity 0.25s ease; }
+        body.modal-active { overflow: hidden; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+    <!-- Header / Navigasi -->
+    <header class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold tracking-wide">Flash Store</h1>
+            <p class="text-sm bg-blue-700 px-3 py-1 rounded-full">Fast Response via WA</p>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="container mx-auto px-4 py-8">
+        <h2 class="text-xl font-semibold mb-6 text-gray-800">Produk Unggulan</h2>
+        
+        <!-- Grid Produk -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            
+            <!-- Produk 1 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col justify-between">
+                <img src="https://res.cloudinary.com/flashphone/image/upload/v1781023107/Untitled_fkqulf.png" alt="Produk 1" class="w-full h-48 object-cover">
+                <div class="p-4 flex-grow">
+                    <h3 class="font-bold text-gray-900 text-lg mb-1">EDC Saku M3BT</h3>
+                    <p class="text-gray-600 text-sm mb-4">Keunggulan Mesin EDC M3BT Tidak ada target transaksi bulanan Proses pendaftaran dan verifikasi mudah serta cepat Garansi perangkat selama 1 tahun Mendukung transaksi dengan kartu bansos (PKH, BPNT, dll) Didesain tahan panas, cocok untuk penggunaan di luar ruangan Meningkatkan potensi transaksi untuk usaha kecil dan menengah Cocok untuk UMKM, toko kelontong, agen, hingga konter pulsa Didukung oleh layanan pelanggan yang cepat dan responsif.</p>
+                </div>
+                <div class="p-4 pt-0">
+                    <div class="text-blue-600 font-bold text-xl mb-3">Rp 580.000</div>
+                    <button onclick="bukaFormPemesanan('EDC Saku', 'Rp 580.000')" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-center block">
+                        Beli Sekarang
+                    </button>
+                </div>
+            </div>
+
+            <!-- Produk 2 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col justify-between">
+                <img src="https://res.cloudinary.com/flashphone/image/upload/c_scale,h_333,w_500/v1781023293/edddc_wusrn3.png" alt="Produk 2" class="w-full h-48 object-cover">
+                <div class="p-4 flex-grow">
+                    <h3 class="font-bold text-gray-900 text-lg mb-1">EDC T1</h3>
+                    <p class="text-gray-600 text-sm mb-4">Fitur lengkap (Terdapat printer & aplikasi Flash Xtra), Bisa untuk Cek saldo, Tarik Tunai, PKH, Transfer, Tidak ada target bulanan,Harga lebih murah dibanding EDC android lainnya, Rekening penampung bisa pakai rekening apa saja, Registrasi & Aktivasi cepat.</p>
+                </div>
+                <div class="p-4 pt-0">
+                    <div class="text-blue-600 font-bold text-xl mb-3">Rp 2.500.000</div>
+                    <button onclick="bukaFormPemesanan('EDC T1', 'Rp 2.500.000')" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-center block">
+                        Beli Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Form Pemesanan -->
+    <div id="modalOrder" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" onclick="tutupFormPemesanan()"></div>
+        
+        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+            <div class="modal-content py-4 text-left px-6">
+                <!-- Judul Modal -->
+                <div class="flex justify-between items-center pb-3 border-b mb-4">
+                    <p class="text-2xl font-bold text-gray-800">Form Pembelian</p>
+                    <div class="modal-close cursor-pointer z-50" onclick="tutupFormPemesanan()">
+                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <form id="formBeli" onsubmit="kirimWhatsApp(event)">
+                    <!-- Detail Produk (Otomatis terisi) -->
+                    <div class="mb-4 bg-gray-50 p-3 rounded-md">
+                        <p class="text-sm text-gray-500">Produk yang dipilih:</p>
+                        <p id="namaProdukModal" class="font-bold text-gray-800"></p>
+                        <p id="hargaProdukModal" class="text-blue-600 font-semibold"></p>
+                    </div>
+
+                    <!-- Input Data Pembeli -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap</label>
+                        <input type="text" id="namaPembeli" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Contoh: Budi Santoso">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Alamat Lengkap</label>
+                        <textarea id="alamatPembeli" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline rows="3" placeholder="Jl. Anggrek No. 12, Jakarta"></textarea>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Metode Pembayaran</label>
+                        <select id="metodeBayar" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="Transfer Bank (BCA/Mandiri/BNI,BRI)">Transfer Bank</option>
+                        </select>
+                    </div>
+
+                    <!-- Tombol Aksi -->
+                    <div class="flex justify-end pt-2">
+                        <button type="button" onclick="tutupFormPemesanan()" class="px-4 bg-gray-200 p-3 rounded-lg text-black hover:bg-gray-300 mr-2 transition duration-200">Batal</button>
+                        <button type="submit" class="px-4 bg-green-500 p-3 rounded-lg text-white hover:bg-green-600 font-medium transition duration-200">Kirim ke CS Flash Xtra</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript untuk Logika Toko -->
+    <script>
+        // GANTI NOMOR INI DENGAN NOMOR WHATSAPP ANDA (Gunakan kode negara, misal 62 untuk Indonesia)
+        const NOMOR_WHATSAPP = "6287860288354"; 
+
+        let produkTerpilih = "";
+        let hargaTerpilih = "";
+
+        function bukaFormPemesanan(namaProduk, hargaProduk) {
+            produkTerpilih = namaProduk;
+            hargaTerpilih = hargaProduk;
+
+            // Isi data di modal
+            document.getElementById('namaProdukModal').innerText = namaProduk;
+            document.getElementById('hargaProdukModal').innerText = hargaProduk;
+
+            // Tampilkan modal
+            const modal = document.getElementById('modalOrder');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.classList.add('modal-active');
+        }
+
+        function tutupFormPemesanan() {
+            // Sembunyikan modal dan reset form
+            const modal = document.getElementById('modalOrder');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.classList.remove('modal-active');
+            document.getElementById('formBeli').reset();
+        }
+
+        function kirimWhatsApp(event) {
+            event.preventDefault(); // Mencegah reload halaman
+
+            // Ambil data dari form
+            const nama = document.getElementById('namaPembeli').value;
+            const alamat = document.getElementById('alamatPembeli').value;
+            const metode = document.getElementById('metodeBayar').value;
+
+            // Susun teks pesan WhatsApp (menggunakan encodeURIComponent agar rapi saat dikirim)
+            const teksPesan = 
+                `*Halo Admin, Saya mau order!* \n\n` +
+                `*Detail Produk:* \n` +
+                `- Produk: ${produkTerpilih} \n` +
+                `- Harga: ${hargaTerpilih} \n\n` +
+                `*Data Pengiriman:* \n` +
+                `- Nama: ${nama} \n` +
+                `- Alamat: ${alamat} \n` +
+                `- Metode Pembayaran: ${metode} \n\n` +
+                `Mohon segera diproses ya, terima kasih!`;
+
+            // Buat URL WhatsApp api
+            const urlWA = `https://api.whatsapp.com/send?phone=${NOMOR_WHATSAPP}&text=${encodeURIComponent(teksPesan)}`;
+
+            // Buka tab baru menuju WhatsApp
+            window.open(urlWA, '_blank');
+
+            // Tutup modal kembali
+            tutupFormPemesanan();
+        }
+    </script>
+</body>
+</html>
