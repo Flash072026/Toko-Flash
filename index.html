@@ -58,7 +58,7 @@
         <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" onclick="tutupFormPemesanan()"></div>
         
         <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-            <div class="modal-content py-4 text-left px-6">
+            <div id="modalContent" class="modal-content py-4 text-left px-6">
                 <div class="flex justify-between items-center pb-3 border-b mb-4">
                     <p class="text-2xl font-bold text-gray-800">Form Pembelian</p>
                     <div class="modal-close cursor-pointer z-50" onclick="tutupFormPemesanan()">
@@ -68,35 +68,37 @@
                     </div>
                 </div>
 
-                <form id="formBeli" onsubmit="kirimWhatsApp(event)">
-                    <div class="mb-4 bg-gray-50 p-3 rounded-md">
-                        <p class="text-sm text-gray-500">Produk yang dipilih:</p>
-                        <p id="namaProdukModal" class="font-bold text-gray-800"></p>
-                        <p id="hargaProdukModal" class="text-blue-600 font-semibold"></p>
-                    </div>
+                <div id="areaForm">
+                    <form onsubmit="buatTautanKonfirmasi(event)">
+                        <div class="mb-4 bg-gray-50 p-3 rounded-md">
+                            <p class="text-sm text-gray-500">Produk yang dipilih:</p>
+                            <p id="namaProdukModal" class="font-bold text-gray-800"></p>
+                            <p id="hargaProdukModal" class="text-blue-600 font-semibold"></p>
+                        </div>
 
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap</label>
-                        <input type="text" id="namaPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" placeholder="Contoh: Budi Santoso">
-                    </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap</label>
+                            <input type="text" id="namaPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" placeholder="Contoh: Budi Santoso">
+                        </div>
 
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Alamat Lengkap</label>
-                        <textarea id="alamatPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" rows="3" placeholder="Jl. Anggrek No. 12, Jakarta"></textarea>
-                    </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Alamat Lengkap</label>
+                            <textarea id="alamatPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" rows="3" placeholder="Jl. Anggrek No. 12, Jakarta"></textarea>
+                        </div>
 
-                    <div class="mb-6">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Metode Pembayaran</label>
-                        <select id="metodeBayar" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none">
-                            <option value="Transfer Bank (BCA/Mandiri/BNI/BRI)">Transfer Bank</option>
-                        </select>
-                    </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Metode Pembayaran</label>
+                            <select id="metodeBayar" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none">
+                                <option value="Transfer Bank (BCA/Mandiri/BNI/BRI)">Transfer Bank</option>
+                            </select>
+                        </div>
 
-                    <div class="flex justify-end pt-2">
-                        <button type="button" onclick="tutupFormPemesanan()" class="px-4 bg-gray-200 p-3 rounded-lg text-black hover:bg-gray-300 mr-2 transition duration-200 cursor-pointer">Batal</button>
-                        <button type="submit" class="px-4 bg-green-500 p-3 rounded-lg text-white hover:bg-green-600 font-medium transition duration-200 cursor-pointer">Kirim ke CS Flash Xtra</button>
-                    </div>
-                </form>
+                        <div class="flex justify-end pt-2">
+                            <button type="button" onclick="tutupFormPemesanan()" class="px-4 bg-gray-200 p-3 rounded-lg text-black hover:bg-gray-300 mr-2 transition duration-200 cursor-pointer">Batal</button>
+                            <button type="submit" class="px-4 bg-blue-600 p-3 rounded-lg text-white hover:bg-blue-700 font-medium transition duration-200 cursor-pointer">Konfirmasi Data</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -111,6 +113,45 @@
             produkTerpilih = namaProduk;
             hargaTerpilih = hargaProduk;
 
+            // Reset tampilan modal ke form awal seandainya dibuka kembali
+            document.getElementById('modalContent').innerHTML = `
+                <div class="flex justify-between items-center pb-3 border-b mb-4">
+                    <p class="text-2xl font-bold text-gray-800">Form Pembelian</p>
+                    <div class="modal-close cursor-pointer z-50" onclick="tutupFormPemesanan()">
+                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div id="areaForm">
+                    <form onsubmit="buatTautanKonfirmasi(event)">
+                        <div class="mb-4 bg-gray-50 p-3 rounded-md">
+                            <p class="text-sm text-gray-500">Produk yang dipilih:</p>
+                            <p id="namaProdukModal" class="font-bold text-gray-800"></p>
+                            <p id="hargaProdukModal" class="text-blue-600 font-semibold"></p>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap</label>
+                            <input type="text" id="namaPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" placeholder="Contoh: Budi Santoso">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Alamat Lengkap</label>
+                            <textarea id="alamatPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" rows="3" placeholder="Jl. Anggrek No. 12, Jakarta"></textarea>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Metode Pembayaran</label>
+                            <select id="metodeBayar" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none">
+                                <option value="Transfer Bank (BCA/Mandiri/BNI/BRI)">Transfer Bank</option>
+                            </select>
+                        </div>
+                        <div class="flex justify-end pt-2">
+                            <button type="button" onclick="tutupFormPemesanan()" class="px-4 bg-gray-200 p-3 rounded-lg text-black hover:bg-gray-300 mr-2 transition duration-200 cursor-pointer">Batal</button>
+                            <button type="submit" class="px-4 bg-blue-600 p-3 rounded-lg text-white hover:bg-blue-700 font-medium transition duration-200 cursor-pointer">Konfirmasi Data</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+
             document.getElementById('namaProdukModal').innerText = namaProduk;
             document.getElementById('hargaProdukModal').innerText = hargaProduk;
 
@@ -123,27 +164,36 @@
             const modal = document.getElementById('modalOrder');
             modal.classList.add('opacity-0', 'pointer-events-none');
             document.body.classList.remove('modal-active');
-            document.getElementById('formBeli').reset();
         }
 
-        function kirimWhatsApp(event) {
+        function buatTautanKonfirmasi(event) {
             event.preventDefault(); 
 
             const nama = document.getElementById('namaPembeli').value;
             const alamat = document.getElementById('alamatPembeli').value;
             const metode = document.getElementById('metodeBayar').value;
 
-            // Teks dibuat satu baris padat tanpa enter (\n) yang berlebihan agar tidak merusak tautan di aplikasi Anda
-            const teksPesan = `Halo CS Flash Xtra, saya mau order ${produkTerpilih} seharga ${hargaTerpilih}. Data saya: Nama: ${nama}, Alamat: ${alamat}, Pembayaran: ${metode}.`;
+            // Pesan dibuat pendek sesuai keberhasilan tes Anda
+            const teksPesan = `Order ${produkTerpilih}. Nama: ${nama}, Alamat: ${alamat}`;
 
-            // Menggunakan struktur dasar whatsapp:// yang terbukti lolos di aplikasi Anda
+            // Menyusun tautan murni whatsapp://
             const urlWA = `whatsapp://send/?phone=${NOMOR_WHATSAPP}&text=${encodeURIComponent(teksPesan)}`;
 
-            // Buka WhatsApp langsung
-            window.location.href = urlWA;
-
-            // Tutup modal kembali
-            tutupFormPemesanan();
+            // Mengubah isi modal menjadi tombol klik manual murni (bukan dipicu otomatis oleh script)
+            const areaForm = document.getElementById('areaForm');
+            areaForm.innerHTML = `
+                <div class="text-center py-4">
+                    <p class="text-sm text-gray-600 mb-4">Data Anda sudah siap. Silakan klik tombol di bawah untuk langsung mengirim via WhatsApp:</p>
+                    
+                    <a href="${urlWA}" onclick="tutupFormPemesanan()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-4 rounded-lg transition duration-200 block text-center shadow-md text-lg animate-bounce">
+                        🚀 KIRIM ORDERAN KE WHATSAPP
+                    </a>
+                    
+                    <button onclick="bukaFormPemesanan('${produkTerpilih}', '${hargaTerpilih}')" class="mt-4 text-xs text-gray-500 underline block mx-auto">
+                        Edit Data Kembali
+                    </button>
+                </div>
+            `;
         }
     </script>
 </body>
