@@ -69,7 +69,7 @@
                 </div>
 
                 <div id="areaForm">
-                    <form onsubmit="prosesOrderManual(event)">
+                    <form onsubmit="prosesOrderLengkap(event)">
                         <div class="mb-4 bg-gray-50 p-3 rounded-md">
                             <p class="text-sm text-gray-500">Produk yang dipilih:</p>
                             <p id="namaProdukModal" class="font-bold text-gray-800"></p>
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <div id="areaForm">
-                    <form onsubmit="prosesOrderManual(event)">
+                    <form onsubmit="prosesOrderLengkap(event)">
                         <div class="mb-4 bg-gray-50 p-3 rounded-md">
                             <p class="text-sm text-gray-500">Produk yang dipilih:</p>
                             <p id="namaProdukModal" class="font-bold text-gray-800"></p>
@@ -166,56 +166,63 @@
             document.body.classList.remove('modal-active');
         }
 
-        function prosesOrderManual(event) {
+        function prosesOrderLengkap(event) {
             event.preventDefault(); 
 
             const nama = document.getElementById('namaPembeli').value;
             const alamat = document.getElementById('alamatPembeli').value;
             const metode = document.getElementById('metodeBayar').value;
 
-            // Teks pesanan ringkas sesuai keinginan Anda
-            const teksPesan = `halo saya order ${produkTerpilih}`;
+            // Format teks pesanan dibuat lengkap dengan baris baru agar rapi saat masuk WA
+            const teksPesan = 
+                `FORMAT ORDERAN BARU\n` +
+                `---------------------\n` +
+                `Produk: ${produkTerpilih}\n` +
+                `Harga: ${hargaTerpilih}\n\n` +
+                `Nama Pembeli: ${nama}\n` +
+                `Alamat: ${alamat}\n` +
+                `Pembayaran: ${metode}`;
 
-            // Ubah form menjadi instruksi salin manual yang aman tanpa link luar
+            // Mengubah form menjadi instruksi salin data lengkap yang aman
             const areaForm = document.getElementById('areaForm');
             areaForm.innerHTML = `
                 <div class="text-center py-2">
                     <div class="bg-blue-50 text-blue-800 p-3 rounded-md mb-4 text-xs font-medium text-left border border-blue-200">
-                        Sistem aplikasi mengamankan tautan otomatis. Silakan ikuti petunjuk manual di bawah ini untuk mengirim orderan Anda:
+                        Format pesanan Anda sudah dibuat. Silakan klik tombol biru untuk menyalin data, lalu kirim ke WhatsApp kami.
                     </div>
                     
-                    <p class="font-bold text-gray-700 mb-1 text-left text-xs">1. Format Pesanan Anda:</p>
-                    <textarea id="teksOrderan" readonly class="w-full h-16 p-2 border rounded-md bg-gray-50 text-xs font-mono mb-3 focus:outline-none">${teksPesan}</textarea>
+                    <p class="font-bold text-gray-700 mb-1 text-left text-xs">Data Pesanan Anda:</p>
+                    <textarea id="teksOrderan" readonly class="w-full h-36 p-2 border rounded-md bg-gray-50 text-xs font-mono mb-3 focus:outline-none">${teksPesan}</textarea>
                     
-                    <button onclick="salinFormatSaja()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-200 cursor-pointer text-sm mb-4 shadow-sm">
+                    <button onclick="salinFormatLengkap()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-200 cursor-pointer text-sm mb-4 shadow-sm">
                         Klik Disini Untuk Salin Pesanan
                     </button>
 
                     <div class="bg-gray-50 p-3 rounded-lg mb-4 text-center border border-dashed border-gray-300">
-                        <p class="text-xs text-gray-500 font-bold">2. Kirim ke WhatsApp CS kami:</p>
+                        <p class="text-xs text-gray-500 font-bold">Kirim ke WhatsApp CS kami:</p>
                         <p class="text-xl font-bold text-green-600 tracking-wider my-1">${NOMOR_CS_TAMPIL}</p>
-                        <p class="text-[10px] text-gray-400">Silakan simpan nomor di atas atau paste langsung jika Anda menggunakan fitur tambah kontak.</p>
+                        <p class="text-[10px] text-gray-400">Silakan buka WA, buat chat baru ke nomor di atas, lalu Tempel (Paste) pesannya.</p>
                     </div>
 
                     <button onclick="tutupFormPemesanan()" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition duration-200 cursor-pointer text-xs">
-                        Selesai & Kembali ke Toko
+                        Selesai & Kembali ke Katalog
                     </button>
                 </div>
             `;
         }
 
-        function salinFormatSaja() {
+        function salinFormatLengkap() {
             const copyText = document.getElementById("teksOrderan");
             copyText.select();
             copyText.setSelectionRange(0, 99999); 
             
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(copyText.value).then(() => {
-                    alert("Format pesanan BERHASIL DISALIN!\n\nSilakan buka aplikasi WhatsApp Anda secara manual, lalu tempel (paste) pesannya ke nomor CS Flash Xtra: " + NOMOR_CS_TAMPIL);
+                    alert("Format pesanan LENGKAP berhasil disalin!\n\nSilakan buka WhatsApp Anda, lalu tempel (paste) pesannya ke CS Flash Xtra: " + NOMOR_CS_TAMPIL);
                 });
             } else {
                 document.execCommand("copy");
-                alert("Format pesanan BERHASIL DISALIN!\n\nSilakan buka aplikasi WhatsApp Anda secara manual, lalu tempel (paste) pesannya ke nomor CS Flash Xtra: " + NOMOR_CS_TAMPIL);
+                alert("Format pesanan LENGKAP berhasil disalin!\n\nSilakan buka WhatsApp Anda, lalu tempel (paste) pesannya ke CS Flash Xtra: " + NOMOR_CS_TAMPIL);
             }
         }
     </script>
