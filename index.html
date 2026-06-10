@@ -15,7 +15,9 @@
     <header class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold tracking-wide">Flash Store</h1>
-            <p class="text-sm bg-blue-700 px-3 py-1 rounded-full">Fast Response via WA</p>
+            <a href="whatsapp://send/?phone=6287860288354&text=" class="text-sm bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded-full font-medium transition duration-200 shadow-sm border border-blue-500">
+                Fast Response via WA
+            </a>
         </div>
     </header>
 
@@ -113,7 +115,6 @@
             produkTerpilih = namaProduk;
             hargaTerpilih = hargaProduk;
 
-            // Reset tampilan modal ke form awal seandainya dibuka kembali
             document.getElementById('modalContent').innerHTML = `
                 <div class="flex justify-between items-center pb-3 border-b mb-4">
                     <p class="text-2xl font-bold text-gray-800">Form Pembelian</p>
@@ -173,7 +174,6 @@
             const alamat = document.getElementById('alamatPembeli').value;
             const metode = document.getElementById('metodeBayar').value;
 
-            // Format teks pesanan dibuat lengkap dengan baris baru agar rapi saat masuk WA
             const teksPesan = 
                 `FORMAT ORDERAN BARU\n` +
                 `---------------------\n` +
@@ -183,7 +183,6 @@
                 `Alamat: ${alamat}\n` +
                 `Pembayaran: ${metode}`;
 
-            // Mengubah form menjadi instruksi salin data lengkap yang aman
             const areaForm = document.getElementById('areaForm');
             areaForm.innerHTML = `
                 <div class="text-center py-2">
