@@ -32,8 +32,8 @@
                     <p class="text-gray-600 text-sm mb-4">Keunggulan Mesin EDC M3BT Tanpa target bulanan, garansi 1 tahun, support kartu bansos.</p>
                 </div>
                 <div class="p-4 pt-0">
-                    <div class="text-blue-600 font-bold text-xl mb-3">Rp 580.000</div>
-                    <button onclick="bukaFormPemesanan('EDC Saku M3BT', 'Rp 580.000')" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-center block cursor-pointer">
+                    <div class="text-blue-600 font-bold text-xl mb-3">Rp 480.000</div>
+                    <button onclick="bukaFormPemesanan('EDC Saku M3BT', 'Rp 480.000')" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-center block cursor-pointer">
                         Beli Sekarang
                     </button>
                 </div>
@@ -75,23 +75,31 @@
                             <p id="namaProdukModal" class="font-bold text-gray-800"></p>
                             <p id="hargaProdukModal" class="text-blue-600 font-semibold"></p>
                         </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap</label>
-                            <input type="text" id="namaPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none" placeholder="Contoh: Budi Santoso">
+                        <div class="mb-3">
+                            <label class="block text-gray-700 text-sm font-bold mb-1">Nama Lengkap</label>
+                            <input type="text" id="namaPembeli" required class="shadow border rounded w-full py-1.5 px-3 text-gray-700 focus:outline-none" placeholder="Contoh: Budi Santoso">
+                        </div>
+                        <div class="mb-3">
+                            <label class="block text-gray-700 text-sm font-bold mb-1">Nomor HP / WhatsApp</label>
+                            <input type="tel" id="hpPembeli" required class="shadow border rounded w-full py-1.5 px-3 text-gray-700 focus:outline-none" placeholder="Contoh: 081234567890">
+                        </div>
+                        <div class="mb-3">
+                            <label class="block text-gray-700 text-sm font-bold mb-1">ID Agen</label>
+                            <input type="text" id="idAgen" required class="shadow border rounded w-full py-1.5 px-3 text-gray-700 focus:outline-none" placeholder="Contoh: FL0021">
+                        </div>
+                        <div class="mb-3">
+                            <label class="block text-gray-700 text-sm font-bold mb-1">Alamat Lengkap</label>
+                            <textarea id="alamatPembeli" required class="shadow border rounded w-full py-1.5 px-3 text-gray-700 focus:outline-none" rows="2" placeholder="Jl. Anggrek No. 12"></textarea>
                         </div>
                         <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Alamat Lengkap</label>
-                            <textarea id="alamatPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none" rows="3" placeholder="Jl. Anggrek No. 12"></textarea>
-                        </div>
-                        <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Metode Pembayaran</label>
-                            <select id="metodeBayar" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none">
+                            <label class="block text-gray-700 text-sm font-bold mb-1">Metode Pembayaran</label>
+                            <select id="metodeBayar" class="shadow border rounded w-full py-1.5 px-3 text-gray-700 focus:outline-none">
                                 <option value="Transfer Bank">Transfer Bank</option>
                             </select>
                         </div>
                         <div class="flex justify-end pt-2">
-                            <button type="button" onclick="tutupFormPemesanan()" class="px-4 bg-gray-200 p-3 rounded-lg mr-2 hover:bg-gray-300">Batal</button>
-                            <button type="submit" class="px-4 bg-blue-600 p-3 rounded-lg text-white hover:bg-blue-700 font-medium">Konfirmasi</button>
+                            <button type="button" onclick="tutupFormPemesanan()" class="px-4 bg-gray-200 p-2.5 rounded-lg mr-2 hover:bg-gray-300">Batal</button>
+                            <button type="submit" class="px-4 bg-blue-600 p-2.5 rounded-lg text-white hover:bg-blue-700 font-medium">Konfirmasi</button>
                         </div>
                     </form>
                 </div>
@@ -121,6 +129,8 @@
         function kirimKeDashboardDanCopy(event) {
             event.preventDefault();
             const nama = document.getElementById('namaPembeli').value;
+            const hp = document.getElementById('hpPembeli').value;
+            const agen = document.getElementById('idAgen').value;
             const alamat = document.getElementById('alamatPembeli').value;
             const metode = document.getElementById('metodeBayar').value;
 
@@ -129,29 +139,28 @@
             // ==========================================
             const urlForm = "https://docs.google.com/forms/d/e/1FAIpQLScRuBDUrC-_rk3Jdp8BQCDIodhEko8W9G-zYk-G1GWxN_QNDA/formResponse";
             const formData = new FormData();
-            formData.append('entry.1034345429', produkTerpilih); // Ganti XXXXX dengan ID Produk Anda
-            formData.append('entry.1362190117', nama);           // Ganti XXXXX dengan ID Nama Anda
-            formData.append('entry.798374921', alamat);         // Ganti XXXXX dengan ID Alamat Anda
-            formData.append('entry.1479871032', metode);         // Ganti XXXXX dengan ID Metode Anda
+            formData.append('entry.1034345429', produkTerpilih); // ID Produk
+            formData.append('entry.1362190117', nama);           // ID Nama
+            formData.append('entry.947035298', hp);             // ID Nomor HP (Baru)
+            formData.append('entry.1367151480', agen);           // ID ID Agen (Baru)
+            formData.append('entry.798374921', alamat);         // ID Alamat
+            formData.append('entry.1479871032', metode);         // ID Metode
             // ==========================================
 
-            // Kirim data secara background tanpa pindah halaman
             fetch(urlForm, { method: 'POST', body: formData, mode: 'no-cors' });
 
-            // Salin format teks sebagai cadangan manual ke WA jika pembeli butuh
-            const teksPesan = `FORMAT ORDERAN BARU\nProduk: ${produkTerpilih}\nHarga: ${hargaTerpilih}\nNama: ${nama}\nAlamat: ${alamat}\nPembayaran: ${metode}`;
+            const teksPesan = `FORMAT ORDERAN BARU\nProduk: ${produkTerpilih}\nHarga: ${hargaTerpilih}\nNama: ${nama}\nNo HP: ${hp}\nID Agen: ${agen}\nAlamat: ${alamat}\nPembayaran: ${metode}`;
             
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(teksPesan);
             }
 
-            // Tampilkan pesan sukses di modal
             document.getElementById('areaForm').innerHTML = `
                 <div class="text-center py-4">
                     <div class="bg-green-100 text-green-800 p-3 rounded-md mb-4 text-xs font-medium">
-                        Pesanan Berhasil Dikirim ke Sistem Dashboard Admin!
+                        Berhasil Membuat Pesanan!
                     </div>
-                    <p class="text-xs text-gray-600 mb-4">Format teks cadangan juga telah disalin otomatis ke memori HP.</p>
+                    <p class="text-xs text-gray-600 mb-4">PESANAN ANDA SUDAH KAMI TERIMA, CS KAMI AKAN SEGERA MENGHUBUNGI ANDA.</p>
                     <button onclick="tutupFormPemesanan()" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Selesai</button>
                 </div>
             `;
