@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Toko Flash</title>
+    <title>Mini Toko Flash - Form KYC</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +26,8 @@
         .modal-active .bottom-sheet {
             transform: translateY(0);
         }
+        .step-content { display: none; }
+        .step-content.active { display: block; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 antialiased min-h-screen pb-24">
@@ -49,7 +51,6 @@
         </div>
         
         <div class="space-y-5">
-            
             <div class="bg-white rounded-2xl android-shadow border border-gray-100 overflow-hidden flex flex-col transition active:scale-[0.99]">
                 <div class="relative">
                     <img src="https://res.cloudinary.com/flashphone/image/upload/v1781023107/Untitled_fkqulf.png" alt="Produk 1" class="w-full h-52 object-cover">
@@ -57,14 +58,12 @@
                 </div>
                 <div class="p-5 flex-grow">
                     <h3 class="font-bold text-gray-900 text-lg mb-1 leading-snug">EDC Saku M3BT</h3>
-                    
                     <div class="flex items-center gap-1 mb-4">
                         <span class="text-yellow-400 text-sm">★</span>
                         <span class="text-xs text-gray-600 font-semibold">4.9</span>
                         <span class="text-xs text-gray-400">|</span>
                         <span class="text-xs text-green-600 font-medium bg-green-50 px-2 py-0.5 rounded">350+ Terjual</span>
                     </div>
-                    
                     <div class="space-y-2 border-t border-gray-100 pt-3">
                         <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Fitur Utama:</p>
                         <ul class="text-gray-600 text-sm space-y-1.5">
@@ -72,11 +71,10 @@
                             <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Tarik Tunai.</strong></li>
                             <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Transfer Antar Bank.</strong></li>
                             <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Pencairan Dana Bansos/PKH.</strong></li>
-                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Fee Transaksi.</strong></li>
+                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Transaksi QRIS.</strong></li>
                         </ul>
                     </div>
                 </div>
-                
                 <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-gray-50 mt-auto">
                     <div class="flex flex-col">
                         <div class="flex items-center gap-1.5 mb-0.5">
@@ -98,14 +96,12 @@
                 </div>
                 <div class="p-5 flex-grow">
                     <h3 class="font-bold text-gray-900 text-lg mb-1 leading-snug">EDC T1</h3>
-                    
                     <div class="flex items-center gap-1 mb-4">
                         <span class="text-yellow-400 text-sm">★</span>
                         <span class="text-xs text-gray-600 font-semibold">4.8</span>
                         <span class="text-xs text-gray-400">|</span>
                         <span class="text-xs text-green-600 font-medium bg-green-50 px-2 py-0.5 rounded">400+ Terjual</span>
                     </div>
-                    
                     <div class="space-y-2 border-t border-gray-100 pt-3">
                         <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Fitur Utama:</p>
                         <ul class="text-gray-600 text-sm space-y-1.5">
@@ -114,11 +110,9 @@
                             <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Transfer Antar Bank.</strong></li>
                             <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Pencairan Dana Bansos/PKH.</strong></li>
                             <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Transaksi QRIS.</strong></li>
-                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Fee Transaksi.</strong></li>
                         </ul>
                     </div>
                 </div>
-                
                 <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-gray-50 mt-auto">
                     <div class="flex flex-col">
                         <div class="flex items-center gap-1.5 mb-0.5">
@@ -132,73 +126,135 @@
                     </button>
                 </div>
             </div>
-            
         </div>
     </main>
 
     <div id="modalOrder" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-end justify-center z-50 transition-all duration-300">
         <div class="modal-overlay absolute w-full h-full bg-black/40 backdrop-blur-sm" onclick="tutupFormPemesanan()"></div>
-        <div class="bottom-sheet bg-white w-full max-w-md rounded-t-3xl shadow-2xl z-50 overflow-y-auto max-h-[90vh]">
+        <div class="bottom-sheet bg-white w-full max-w-lg rounded-t-3xl shadow-2xl z-50 overflow-y-auto max-h-[92vh]">
             <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto my-3" onclick="tutupFormPemesanan()"></div>
             
             <div id="modalContent" class="py-2 text-left px-6 pb-8">
-                <div class="flex justify-between items-center pb-4 border-b border-gray-100 mb-5">
+                <div class="pb-4 border-b border-gray-100 mb-5 flex justify-between items-center">
                     <div>
-                        <h3 class="text-xl font-bold text-gray-900 tracking-tight">Form Pembelian</h3>
-                        <p class="text-xs text-gray-500 mt-0.5">Lengkapi data pengiriman Anda</p>
+                        <h3 id="modalTitle" class="text-lg font-bold text-gray-900 tracking-tight">Formulir Pembelian</h3>
+                        <p id="modalSubtitle" class="text-xs text-gray-500 mt-0.5">Lengkapi data pendaftaran & berkas KYC Anda</p>
                     </div>
-                    <div class="modal-close p-2 bg-gray-100 hover:bg-gray-200 rounded-full cursor-pointer" onclick="tutupFormPemesanan()">
-                        <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
+                    <div class="p-2 bg-gray-100 hover:bg-gray-200 rounded-full cursor-pointer" onclick="tutupFormPemesanan()">
+                        <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </div>
                 </div>
 
+                <div id="stepperContainer" class="flex items-center justify-between mb-8 text-center max-w-sm mx-auto">
+                    <div class="flex flex-col items-center"><div id="badge-1" class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-[10px]">1</div><span class="text-[9px] font-bold mt-1 text-gray-700">ORDER</span></div>
+                    <div class="flex flex-col items-center"><div id="badge-2" class="w-6 h-6 rounded-full bg-gray-200 text-gray-600 font-bold flex items-center justify-center text-[10px]">2</div><span class="text-[9px] font-bold mt-1 text-gray-400">TOKO</span></div>
+                    <div class="flex flex-col items-center"><div id="badge-3" class="w-6 h-6 rounded-full bg-gray-200 text-gray-600 font-bold flex items-center justify-center text-[10px]">3</div><span class="text-[9px] font-bold mt-1 text-gray-400">PEMILIK</span></div>
+                    <div class="flex flex-col items-center"><div id="badge-4" class="w-6 h-6 rounded-full bg-gray-200 text-gray-600 font-bold flex items-center justify-center text-[10px]">4</div><span class="text-[9px] font-bold mt-1 text-gray-400">BANK</span></div>
+                    <div class="flex flex-col items-center"><div id="badge-5" class="w-6 h-6 rounded-full bg-gray-200 text-gray-600 font-bold flex items-center justify-center text-[10px]">5</div><span class="text-[9px] font-bold mt-1 text-gray-400">BERKAS</span></div>
+                </div>
+
                 <div id="areaForm">
-                    <form onsubmit="kirimKeDashboardDanCopy(event)" class="space-y-4">
-                        <div class="bg-blue-50/70 border border-blue-100/50 p-4 rounded-xl flex justify-between items-center">
-                            <div>
-                                <p class="text-[11px] font-bold text-blue-500 uppercase tracking-wider mb-0.5">Produk Terpilih</p>
-                                <p id="namaProdukModal" class="font-bold text-gray-800 text-base"></p>
+                    <form id="multiStepKycForm" onsubmit="prosesKirimDataKeSheets(event)" class="space-y-4">
+                        
+                        <div class="step-content active" id="step-1">
+                            <div class="bg-blue-50/70 border border-blue-100/50 p-4 rounded-xl flex justify-between items-center mb-4">
+                                <div>
+                                    <p class="text-[10px] font-bold text-blue-500 uppercase tracking-wider mb-0.5">Produk Terpilih</p>
+                                    <p id="namaProdukModal" class="font-bold text-gray-800 text-sm"></p>
+                                </div>
+                                <p id="hargaProdukModal" class="text-blue-600 font-bold text-sm bg-white px-3 py-1.5 rounded-lg border border-blue-100 shadow-2xs"></p>
                             </div>
-                            <p id="hargaProdukModal" class="text-blue-600 font-bold text-base bg-white px-3 py-1.5 rounded-lg border border-blue-100 shadow-2xs"></p>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-gray-700 text-xs font-semibold mb-1.5">Nama Lengkap</label>
-                            <input type="text" id="namaPembeli" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-150" placeholder="Contoh: Budi Santoso">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-gray-700 text-xs font-semibold mb-1.5">Nomor HP / WhatsApp</label>
-                            <input type="tel" id="hpPembeli" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-150" placeholder="Contoh: 081234567890">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-gray-700 text-xs font-semibold mb-1.5">ID Agen</label>
-                            <input type="text" id="idAgen" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-150" placeholder="Contoh: FL0021">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-gray-700 text-xs font-semibold mb-1.5">Alamat Lengkap</label>
-                            <textarea id="alamatPembeli" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-150" rows="2" placeholder="Jl. Anggrek No. 12, Kec. Klojen..."></textarea>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-gray-700 text-xs font-semibold mb-1.5">Metode Pembayaran</label>
-                            <div class="relative">
-                                <select id="metodeBayar" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 appearance-none focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-150">
-                                    <option value="Transfer Bank">Transfer Bank (Nanti)</option>
-                                </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                            <div class="space-y-3">
+                                <div><label class="block text-gray-700 text-xs font-semibold mb-1">Nama Lengkap *</label><input type="text" id="namaPembeli" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500" placeholder="Contoh: Budi Santoso"></div>
+                                <div><label class="block text-gray-700 text-xs font-semibold mb-1">Nomor HP / WhatsApp *</label><input type="tel" id="hpPembeli" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500" placeholder="Contoh: 081234567890"></div>
+                                <div><label class="block text-gray-700 text-xs font-semibold mb-1">ID Agen *</label><input type="text" id="idAgen" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500" placeholder="Contoh: FL0021"></div>
+                                <div><label class="block text-gray-700 text-xs font-semibold mb-1">Alamat Pengiriman Mesin *</label><textarea id="alamatPembeli" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500" rows="2" placeholder="Jl. Anggrek No. 12, Kec. Klojen..."></textarea></div>
+                                <div><label class="block text-gray-700 text-xs font-semibold mb-1">Metode Pembayaran</label><select id="metodeBayar" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500"><option value="Transfer Bank">Transfer Bank (Nanti)</option></select></div>
+                                <div class="grid grid-cols-2 gap-3 pt-2">
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Tipe EDC Nobu *</label><select id="tipeEdc" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500"><option value="Topwise M3BT">Topwise M3BT</option><option value="Lainnya">Lainnya</option></select></div>
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Sudah Ada EDC Fisik?</label><select id="sudahEdcFisik" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500"><option value="Belum">Belum Memiliki</option><option value="Sudah">Sudah Ada</option></select></div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="flex gap-3 pt-4">
-                            <button type="button" onclick="tutupFormPemesanan()" class="w-1/3 bg-gray-100 p-3.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-200 active:bg-gray-300 transition-all">Batal</button>
-                            <button type="submit" class="w-2/3 bg-blue-600 p-3.5 rounded-xl text-sm font-semibold text-white hover:bg-blue-700 active:bg-blue-800 transition-all shadow-md shadow-blue-200">Konfirmasi</button>
+
+                        <div class="step-content" id="step-2">
+                            <div class="space-y-3">
+                                <div><label class="block text-gray-700 text-xs font-semibold mb-1">Nama Toko *</label><input type="text" id="namaToko" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" placeholder="Nama toko sesuai banner depan"></div>
+                                <div><label class="block text-gray-700 text-xs font-semibold mb-1">Alamat Lengkap Toko *</label><textarea id="alamatToko" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" rows="2" placeholder="Nama jalan, nomor ruko..."></textarea></div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">RT / RW *</label><input type="text" id="rtrwToko" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" placeholder="002/015"></div>
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Kelurahan *</label><input type="text" id="kelurahanToko" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"></div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Kecamatan *</label><input type="text" id="kecamatanToko" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"></div>
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Kota / Kabupaten *</label><input type="text" id="kotaToko" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"></div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Provinsi *</label><input type="text" id="provinsiToko" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"></div>
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Kode Pos Toko *</label><input type="number" id="kodeposToko" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"></div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Jarak ke Pasar Terdekat *</label><select id="jarakPasar" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"><option value="Dekat (<1 KM)">Dekat (&lt;1 KM)</option><option value="Sedang (1-5 KM)">Sedang (1-5 KM)</option><option value="Jauh (>5 KM)">Jauh (&gt;5 KM)</option></select></div>
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Lama Usaha (Tahun) *</label><input type="number" id="lamaUsaha" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" placeholder="Contoh: 2"></div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div class="col-span-1"><label class="block text-gray-700 text-xs font-semibold mb-1">Bidang Usaha *</label><input type="text" id="bidangUsaha" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" placeholder="Sembako"></div>
+                                    <div class="col-span-1"><label class="block text-gray-700 text-xs font-semibold mb-1">Hari Ops *</label><input type="text" id="hariOps" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" placeholder="Senin-Minggu"></div>
+                                    <div class="col-span-1"><label class="block text-gray-700 text-xs font-semibold mb-1">Jam Ops *</label><input type="text" id="jamOps" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" placeholder="08:00-21:00"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-content" id="step-3">
+                            <div class="space-y-3">
+                                <div><label class="block text-gray-700 text-xs font-semibold mb-1">Nama Lengkap Sesuai KTP *</label><input type="text" id="namaPemilik" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"></div>
+                                <div><label class="block text-gray-700 text-xs font-semibold mb-1">Nomor NIK KTP *</label><input type="number" id="nikKtp" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" placeholder="16 Digit NIK"></div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Jenis Kelamin *</label><select id="genderPemilik" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"><option value="Laki-Laki">Laki-Laki</option><option value="Perempuan">Perempuan</option></select></div>
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Agama *</label><select id="agamaPemilik" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"><option value="Islam">Islam</option><option value="Kristen">Kristen</option><option value="Katolik">Katolik</option><option value="Hindu">Hindu</option><option value="Budha">Budha</option><option value="Konghucu">Konghucu</option></select></div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Tempat Lahir *</label><input type="text" id="tempatLahir" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"></div>
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Tanggal Lahir *</label><input type="date" id="tglLahir" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm text-gray-600"></div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Pekerjaan di KTP *</label><input type="text" id="pekerjaanKtp" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" placeholder="Wiraswasta"></div>
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">NPWP Pemilik <span class="text-gray-400 font-normal">(Opsional)</span></label><input type="text" id="npwpPemilik" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"></div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Alamat Rumah Sesuai KTP *</label><textarea id="alamatKtp" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" rows="1"></textarea></div>
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Kode Pos KTP *</label><input type="number" id="kodeposKtp" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-content" id="step-4">
+                            <div class="space-y-3">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Nama Bank *</label><input type="text" id="namaBank" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" placeholder="Contoh: BCA / Mandiri"></div>
+                                    <div><label class="block text-gray-700 text-xs font-semibold mb-1">Nomor Rekening *</label><input type="number" id="noRekening" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm"></div>
+                                </div>
+                                <div><label class="block text-gray-700 text-xs font-semibold mb-1">Nama Pemilik Rekening *</label><input type="text" id="anRekening" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" placeholder="Wajib sama dengan nama KTP"></div>
+                                <div><label class="block text-gray-700 text-xs font-semibold mb-1">No. NeoPay / No. Rekening Nobu *</label><input type="text" id="nobuRekening" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm" placeholder="Masukkan nomor NeoPay akun Nobu Anda"></div>
+                            </div>
+                        </div>
+
+                        <div class="step-content" id="step-5">
+                            <p class="text-[10px] text-amber-600 bg-amber-50 p-2.5 rounded-lg border border-amber-100 mb-3">⚠️ Pastikan ukuran gambar di bawah 2MB per file dan objek terlihat jelas tidak blur.</p>
+                            <div class="grid grid-cols-1 gap-2.5 max-h-[40vh] overflow-y-auto pr-1">
+                                <div class="border border-dashed border-gray-200 rounded-xl p-3 bg-gray-50/50"><span class="block text-[11px] font-bold text-gray-700 mb-1">FOTO KTP PEMILIK *</span><input type="file" id="inpKtp" accept="image/*" required class="w-full text-xs text-gray-500 file:py-1 file:px-3 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700"></div>
+                                <div class="border border-dashed border-gray-200 rounded-xl p-3 bg-gray-50/50"><span class="block text-[11px] font-bold text-gray-700 mb-1">SELFIE MEMEGANG KTP *</span><input type="file" id="inpSelfie" accept="image/*" required class="w-full text-xs text-gray-500 file:py-1 file:px-3 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700"></div>
+                                <div class="border border-dashed border-gray-200 rounded-xl p-3 bg-gray-50/50"><span class="block text-[11px] font-bold text-gray-700 mb-1">SELFIE DI DEPAN BANGUNAN TOKO *</span><input type="file" id="inpSelfieToko" accept="image/*" required class="w-full text-xs text-gray-500 file:py-1 file:px-3 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700"></div>
+                                <div class="border border-dashed border-gray-200 rounded-xl p-3 bg-gray-50/50"><span class="block text-[11px] font-bold text-gray-700 mb-1">FOTO TOKO TAMPAK DEPAN *</span><input type="file" id="inpTokoDepan" accept="image/*" required class="w-full text-xs text-gray-500 file:py-1 file:px-3 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700"></div>
+                                <div class="border border-dashed border-gray-200 rounded-xl p-3 bg-gray-50/50"><span class="block text-[11px] font-bold text-gray-700 mb-1">FOTO TOKO TAMPAK DALAM *</span><input type="file" id="inpTokoDalam" accept="image/*" required class="w-full text-xs text-gray-500 file:py-1 file:px-3 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700"></div>
+                                <div class="border border-dashed border-gray-200 rounded-xl p-3 bg-gray-50/50"><span class="block text-[11px] font-bold text-gray-700 mb-1">FOTO KARTU KELUARGA (KK) *</span><input type="file" id="inpKk" accept="image/*" required class="w-full text-xs text-gray-500 file:py-1 file:px-3 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700"></div>
+                                <div class="border border-dashed border-gray-200 rounded-xl p-3 bg-gray-50/50"><span class="block text-[11px] font-bold text-gray-700 mb-1">SCREENSHOT APLIKASI NOBU GO *</span><input type="file" id="inpNobuGo" accept="image/*" required class="w-full text-xs text-gray-500 file:py-1 file:px-3 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3 pt-4 border-t border-gray-100 items-center justify-between">
+                            <button type="button" id="btnBackStep" onclick="navigasiStep(-1)" class="w-1/3 bg-gray-100 py-3 rounded-xl text-xs font-semibold text-gray-600 hover:bg-gray-200 transition-all invisible">← Kembali</button>
+                            <button type="button" id="btnNextStep" onclick="navigasiStep(1)" class="w-2/3 bg-blue-600 py-3 rounded-xl text-xs font-semibold text-white hover:bg-blue-700 transition-all shadow-md shadow-blue-200">Selanjutnya →</button>
                         </div>
                     </form>
                 </div>
@@ -207,14 +263,19 @@
     </div>
 
     <script>
-        const NOMOR_CS = "0878-6028-8354";
         let produkTerpilih = "", hargaTerpilih = "";
+        let currentStep = 1;
+        const totalSteps = 5;
 
         function bukaFormPemesanan(nama, harga) {
             produkTerpilih = nama; hargaTerpilih = harga;
             document.getElementById('namaProdukModal').innerText = nama;
             document.getElementById('hargaProdukModal').innerText = harga;
             
+            // Reset state form ke langkah awal
+            currentStep = 1;
+            renderStepVisuals();
+
             const modal = document.getElementById('modalOrder');
             modal.classList.remove('opacity-0', 'pointer-events-none');
             document.body.classList.add('modal-active');
@@ -226,43 +287,207 @@
             document.body.classList.remove('modal-active');
         }
 
-        function kirimKeDashboardDanCopy(event) {
-            event.preventDefault();
-            const nama = document.getElementById('namaPembeli').value;
-            const hp = document.getElementById('hpPembeli').value;
-            const agen = document.getElementById('idAgen').value;
-            const alamat = document.getElementById('alamatPembeli').value;
-            const metode = document.getElementById('metodeBayar').value;
-
-            const urlForm = "https://docs.google.com/forms/d/e/1FAIpQLScRuBDUrC-_rk3Jdp8BQCDIodhEko8W9G-zYk-G1GWxN_QNDA/formResponse";
-            const formData = new FormData();
-            formData.append('entry.1034345429', produkTerpilih); 
-            formData.append('entry.1362190117', nama);           
-            formData.append('entry.947035298', hp);              
-            formData.append('entry.1367151480', agen);           
-            formData.append('entry.798374921', alamat);         
-            formData.append('entry.1479871032', metode);         
-
-            fetch(urlForm, { method: 'POST', body: formData, mode: 'no-cors' });
-
-            const teksPesan = `FORMAT ORDERAN BARU\nProduk: ${produkTerpilih}\nHarga: ${hargaTerpilih}\nNama: ${nama}\nNo HP: ${hp}\nID Agen: ${agen}\nAlamat: ${alamat}\nPembayaran: ${metode}`;
-            
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(teksPesan);
+        function navigasiStep(arah) {
+            // Validasi isian mandatory sebelum diizinkan lanjut
+            if (arah === 1 && !validasiInputSeksiAktif()) {
+                alert("Harap lengkapi seluruh kolom input wajib (*) pada tahap ini sebelum melanjutkan!");
+                return;
             }
 
-            document.getElementById('areaForm').innerHTML = `
-                <div class="text-center py-6">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
-                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                    <h4 class="text-lg font-bold text-gray-900 mb-1">Berhasil Membuat Pesanan!</h4>
-                    <p class="text-xs text-gray-500 max-w-xs mx-auto mb-6 leading-relaxed">Pesanan Anda sudah kami terima secara sistem. CS kami akan segera menghubungi Anda dalam waktu singkat.</p>
-                    <button onclick="tutupFormPemesanan()" class="w-full bg-gray-900 text-white font-semibold py-3.5 px-4 rounded-xl text-sm transition active:bg-black">Selesai</button>
-                </div>
-            `;
+            currentStep += arah;
+            if (currentStep < 1) currentStep = 1;
+            if (currentStep > totalSteps) currentStep = totalSteps;
+
+            renderStepVisuals();
+        }
+
+        function validasiInputSeksiAktif() {
+            const containerAktif = document.getElementById(`step-${currentStep}`);
+            const inputsWajib = containerAktif.querySelectorAll('[required], select[required]');
+            let aman = true;
+            inputsWajib.forEach(input => {
+                if (!input.value.trim()) aman = false;
+            });
+            return aman;
+        }
+
+        function renderStepVisuals() {
+            // 1. Tampilkan block form yang aktif saja
+            document.querySelectorAll('.step-content').forEach((block, idx) => {
+                if (idx === (currentStep - 1)) {
+                    block.classList.add('active');
+                } else {
+                    block.classList.remove('active');
+                }
+            });
+
+            // 2. Ubah judul & deskripsi atas modal mengikuti konteks halaman
+            const titles = ["Formulir Pembelian", "Data Lokasi Tempat Usaha", "Data Identitas Pemilik", "Informasi Rekening Bank", "Unggah Berkas Pendukung"];
+            const subs = ["Lengkapi detail pengiriman pesanan Anda", "Masukkan rincian letak geografis toko", "Isi data diri sesuai kartu tanda penduduk", "Akun bank tujuan pencairan/settlement dana", "Unggah kelengkapan dokumen KYC Nobu"];
+            document.getElementById('modalTitle').innerText = titles[currentStep - 1];
+            document.getElementById('modalSubtitle').innerText = subs[currentStep - 1];
+
+            // 3. Update Progress Stepper Bulatan Atas
+            for (let i = 1; i <= totalSteps; i++) {
+                const badge = document.getElementById(`badge-${i}`);
+                if (i < currentStep) {
+                    badge.innerHTML = "✓";
+                    badge.className = "w-6 h-6 rounded-full bg-emerald-500 text-white font-bold flex items-center justify-center text-[10px]";
+                } else if (i === currentStep) {
+                    badge.innerHTML = i;
+                    badge.className = "w-6 h-6 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-[10px]";
+                } else {
+                    badge.innerHTML = i;
+                    badge.className = "w-6 h-6 rounded-full bg-gray-200 text-gray-600 font-bold flex items-center justify-center text-[10px]";
+                }
+            }
+
+            // 4. Manajemen Tombol Kontrol Bawah
+            const btnBack = document.getElementById('btnBackStep');
+            const btnNext = document.getElementById('btnNextStep');
+
+            if (currentStep === 1) btnBack.classList.add('invisible');
+            else btnBack.classList.remove('invisible');
+
+            if (currentStep === totalSteps) {
+                btnNext.innerText = "🚀 Kirim Pendaftaran KYC";
+                btnNext.type = "submit";
+                btnNext.setAttribute('onclick', ''); 
+            } else {
+                btnNext.innerText = "Selanjutnya →";
+                btnNext.type = "button";
+                btnNext.setAttribute('onclick', 'navigasiStep(1)');
+            }
+        }
+
+        // Helper merubah file input gambar fisik ke format teks string Base64
+        function dapatkanBase64(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) resolve("");
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        async function prosesKirimDataKeSheets(event) {
+            event.preventDefault();
+            
+            // Ubah teks tombol menjadi indikator loading agar pembeli tidak klik berkali-kali
+            const btnNext = document.getElementById('btnNextStep');
+            btnNext.disabled = true;
+            btnNext.innerText = "⏳ Sedang Memproses & Mengupload...";
+
+            // Ambil data file mentah
+            const fileKtp = document.getElementById('inpKtp').files[0];
+            const fileSelfie = document.getElementById('inpSelfie').files[0];
+            const fileSelfieToko = document.getElementById('inpSelfieToko').files[0];
+            const fileTokoDepan = document.getElementById('inpTokoDepan').files[0];
+            const fileTokoDalam = document.getElementById('inpTokoDalam').files[0];
+            const fileKk = document.getElementById('inpKk').files[0];
+            const fileNobuGo = document.getElementById('inpNobuGo').files[0];
+
+            // Mengonversi seluruh file gambar ke Base64 secara paralel
+            const base64Ktp = await dapatkanBase64(fileKtp);
+            const base64Selfie = await dapatkanBase64(fileSelfie);
+            const base64SelfieToko = await dapatkanBase64(fileSelfieToko);
+            const base64TokoDepan = await dapatkanBase64(fileTokoDepan);
+            const base64TokoDalam = await dapatkanBase64(fileTokoDalam);
+            const base64Kk = await dapatkanBase64(fileKk);
+            const base64NobuGo = await dapatkanBase64(fileNobuGo);
+
+            // Siapkan struktur data URL encoded untuk dikirim via POST
+            const dataPayload = new URLSearchParams();
+            dataPayload.append("produkTerpilih", produkTerpilih);
+            dataPayload.append("namaPembeli", document.getElementById('namaPembeli').value);
+            dataPayload.append("hpPembeli", document.getElementById('hpPembeli').value);
+            dataPayload.append("idAgen", document.getElementById('idAgen').value);
+            dataPayload.append("alamatPembeli", document.getElementById('alamatPembeli').value);
+            dataPayload.append("metodeBayar", document.getElementById('metodeBayar').value);
+            dataPayload.append("tipeEdc", document.getElementById('tipeEdc').value);
+            dataPayload.append("sudahEdcFisik", document.getElementById('sudahEdcFisik').value);
+            dataPayload.append("namaToko", document.getElementById('namaToko').value);
+            dataPayload.append("alamatToko", document.getElementById('alamatToko').value);
+            dataPayload.append("rtrwToko", document.getElementById('rtrwToko').value);
+            dataPayload.append("kelurahanToko", document.getElementById('kelurahanToko').value);
+            dataPayload.append("kecamatanToko", document.getElementById('kecamatanToko').value);
+            dataPayload.append("kotaToko", document.getElementById('kotaToko').value);
+            dataPayload.append("provinsiToko", document.getElementById('provinsiToko').value);
+            dataPayload.append("kodeposToko", document.getElementById('kodeposToko').value);
+            dataPayload.append("jarakPasar", document.getElementById('jarakPasar').value);
+            dataPayload.append("lamaUsaha", document.getElementById('lamaUsaha').value);
+            dataPayload.append("bidangUsaha", document.getElementById('bidangUsaha').value);
+            dataPayload.append("hariOps", document.getElementById('hariOps').value);
+            dataPayload.append("jamOps", document.getElementById('jamOps').value);
+            dataPayload.append("namaPemilik", document.getElementById('namaPemilik').value);
+            dataPayload.append("nikKtp", document.getElementById('nikKtp').value);
+            dataPayload.append("genderPemilik", document.getElementById('genderPemilik').value);
+            dataPayload.append("agamaPemilik", document.getElementById('agamaPemilik').value);
+            dataPayload.append("tempatLahir", document.getElementById('tempatLahir').value);
+            dataPayload.append("tglLahir", document.getElementById('tglLahir').value);
+            dataPayload.append("pekerjaanKtp", document.getElementById('pekerjaanKtp').value);
+            dataPayload.append("npwpPemilik", document.getElementById('npwpPemilik').value);
+            dataPayload.append("noRekening", document.getElementById('noRekening').value);
+            dataPayload.append("namaBank", document.getElementById('namaBank').value);
+            dataPayload.append("anRekening", document.getElementById('anRekening').value);
+            dataPayload.append("nobuRekening", document.getElementById('nobuRekening').value);
+            
+            // Masukkan data string gambar
+            dataPayload.append("fileKtp", base64Ktp);
+            dataPayload.append("fileSelfie", base64Selfie);
+            dataPayload.append("fileSelfieToko", base64SelfieToko);
+            dataPayload.append("fileTokoDepan", base64TokoDepan);
+            dataPayload.append("fileTokoDalam", base64TokoDalam);
+            dataPayload.append("fileKk", base64Kk);
+            dataPayload.append("fileNobuGo", base64NobuGo);
+
+            // TAUTKAN URL APPS SCRIPT ANDA DI SINI
+            const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzZArdwXmHT1FE45vxCUBfrVSqwL56EyPkTgR76_q1NOhjXDzg4B3f3G0Pdod9KH_I6/exec";
+
+            // Kirim data menggunakan metode fetch API
+            fetch(URL_APPS_SCRIPT, {
+                method: "POST",
+                body: dataPayload.toString(),
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.result === "success") {
+                    // Menyalin ringkasan data teks ke clipboard sebagai cadangan data agen
+                    const ringkasanPesanText = `REGISTRASI KYC BARU\nProduk: ${produkTerpilih}\nNama Toko: ${document.getElementById('namaToko').value}\nNama Pemilik: ${document.getElementById('namaPemilik').value}\nNo HP: ${document.getElementById('hpPembeli').value}`;
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(ringkasanPesanText);
+                    }
+
+                    // Tampilan Sukses Layar Akhir
+                    document.getElementById('stepperContainer').classList.add('hidden');
+                    document.getElementById('modalTitle').innerText = "Pendaftaran Sukses!";
+                    document.getElementById('modalSubtitle').innerText = "Data Anda telah diverifikasi sistem";
+                    document.getElementById('areaForm').innerHTML = `
+                        <div class="text-center py-6">
+                            <div class="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <h4 class="text-base font-bold text-gray-900 mb-1">Data & Berkas KYC Terkirim!</h4>
+                            <p class="text-xs text-gray-500 max-w-xs mx-auto mb-6 leading-relaxed">Seluruh data teks dan berkas foto pendaftaran mesin EDC Anda berhasil disimpan ke cloud data server.</p>
+                            <button onclick="tutupFormPemesanan()" class="w-full bg-gray-900 text-white font-semibold py-3 px-4 rounded-xl text-xs active:bg-black">Selesai</button>
+                        </div>
+                    `;
+                } else {
+                    alert("Gagal menyimpan data: " + data.error);
+                    btnNext.disabled = false;
+                    btnNext.innerText = "🚀 Kirim Pendaftaran KYC";
+                }
+            })
+            .catch(err => {
+                console.error("Error saat submit:", err);
+                alert("Terjadi gangguan jaringan saat mengunggah dokumen. Silakan coba lagi.");
+                btnNext.disabled = false;
+                btnNext.innerText = "🚀 Kirim Pendaftaran KYC";
+            });
         }
     </script>
 </body>
