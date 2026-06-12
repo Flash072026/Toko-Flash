@@ -5,101 +5,199 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Toko Flash</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        .modal { transition: opacity 0.25s ease; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .modal { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         body.modal-active { overflow: hidden; }
+        .android-shadow {
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 4px 12px rgba(0, 0, 0, 0.04);
+        }
+        .bottom-sheet {
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal-active .bottom-sheet {
+            transform: translateY(0);
+        }
     </style>
 </head>
-<body class="bg-gray-100 font-sans antialiased">
+<body class="bg-gray-50 text-gray-900 antialiased min-h-screen pb-24">
 
-    <header class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold tracking-wide">Flash Store</h1>
-            <a href="https://api.whatsapp.com/send?phone=6287860288354" target="_blank" class="text-sm bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded-full font-medium transition duration-200 shadow-sm border border-blue-500">
-                Fast Response via WA
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-40 backdrop-blur-md bg-white/90">
+        <div class="container mx-auto px-5 py-4 flex justify-between items-center max-w-md">
+            <div>
+                <span class="text-xs font-bold text-blue-600 tracking-wider uppercase block mb-0.5">Welcome to</span>
+                <h1 class="text-xl font-bold tracking-tight text-gray-900">Flash Store</h1>
+            </div>
+            <a href="https://api.whatsapp.com/send?phone=6287860288354" target="_blank" class="flex items-center gap-1.5 text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 px-3.5 py-2 rounded-full font-semibold transition duration-200">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 11.966.01c3.178.001 6.165 1.24 8.413 3.491 2.247 2.25 3.481 5.233 3.48 8.412-.003 6.557-5.339 11.894-11.91 11.894-1.999-.001-3.966-.505-5.71-1.467L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.777 1.451 5.375 0 9.743-4.332 9.745-9.673.001-2.587-1.004-5.02-2.83-6.85-1.826-1.83-4.257-2.836-6.843-2.837-5.38 0-9.75 4.333-9.753 9.674-.001 1.68.452 3.32 1.311 4.757l-.989 3.612 3.702-.964zm11.375-6.12c-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.668.149-.198.297-.766.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347z"/></svg>
+                CS Flash
             </a>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8">
-        <h2 class="text-xl font-semibold mb-6 text-gray-800">Produk Utama</h2>
+    <main class="container mx-auto px-5 py-6 max-w-md">
+        <div class="mb-5">
+            <h2 class="text-lg font-bold text-gray-800 tracking-tight">Produk Utama</h2>
+        </div>
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col justify-between">
-                <img src="https://res.cloudinary.com/flashphone/image/upload/v1781023107/Untitled_fkqulf.png" alt="Produk 1" class="w-full h-48 object-cover">
-                <div class="p-4 flex-grow">
-                    <h3 class="font-bold text-gray-900 text-lg mb-1">EDC Saku M3BT</h3>
-                    <p class="text-gray-600 text-sm mb-4">Keunggulan Mesin EDC M3BT Tanpa target bulanan, garansi 1 tahun, support kartu bansos.</p>
+        <div class="space-y-5">
+            
+            <div class="bg-white rounded-2xl android-shadow border border-gray-100 overflow-hidden flex flex-col transition active:scale-[0.99]">
+                <div class="relative">
+                    <img src="https://res.cloudinary.com/flashphone/image/upload/v1781023107/Untitled_fkqulf.png" alt="Produk 1" class="w-full h-52 object-cover">
+                    <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full shadow-sm">Best Seller</span>
                 </div>
-                <div class="p-4 pt-0">
-                    <div class="text-blue-600 font-bold text-xl mb-3">Rp 480.000</div>
-                    <button onclick="bukaFormPemesanan('EDC Saku M3BT', 'Rp 480.000')" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-center block cursor-pointer">
+                <div class="p-5 flex-grow">
+                    <h3 class="font-bold text-gray-900 text-lg mb-1 leading-snug">EDC Saku M3BT</h3>
+                    
+                    <div class="flex items-center gap-1 mb-4">
+                        <span class="text-yellow-400 text-sm">★</span>
+                        <span class="text-xs text-gray-600 font-semibold">4.9</span>
+                        <span class="text-xs text-gray-400">|</span>
+                        <span class="text-xs text-green-600 font-medium bg-green-50 px-2 py-0.5 rounded">350+ Terjual</span>
+                    </div>
+                    
+                    <div class="space-y-2 border-t border-gray-100 pt-3">
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Fitur Utama:</p>
+                        <ul class="text-gray-600 text-sm space-y-1.5">
+                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Cek Saldo.</strong></li>
+                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Tarik Tunai.</strong></li>
+                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Transfer Antar Bank.</strong></li>
+                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Pencairan Dana Bansos/PKH.</strong></li>
+                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Transaksi QRIS.</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-gray-50 mt-auto">
+                    <div class="flex flex-col">
+                        <div class="flex items-center gap-1.5 mb-0.5">
+                            <s class="text-xs text-gray-400">Rp 650.000</s>
+                            <span class="text-[10px] font-bold text-red-500 bg-red-50 px-1.5 py-0.5 rounded-sm">26% OFF</span>
+                        </div>
+                        <div class="text-blue-600 font-bold text-xl tracking-tight">Rp 480.000</div>
+                    </div>
+                    <button onclick="bukaFormPemesanan('EDC Saku M3BT', 'Rp 480.000')" class="bg-gray-900 hover:bg-gray-800 text-white font-semibold text-sm py-3 px-5 rounded-xl transition duration-200 shadow-sm cursor-pointer active:bg-black">
                         Beli Sekarang
                     </button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col justify-between">
-                <img src="https://res.cloudinary.com/flashphone/image/upload/c_scale,h_333,w_500/v1781023293/edddc_wusrn3.png" alt="Produk 2" class="w-full h-48 object-cover">
-                <div class="p-4 flex-grow">
-                    <h3 class="font-bold text-gray-900 text-lg mb-1">EDC T1</h3>
-                    <p class="text-gray-600 text-sm mb-4">Fitur lengkap dengan printer bawaan & aplikasi Flash Xtra. Registrasi cepat.</p>
+            <div class="bg-white rounded-2xl android-shadow border border-gray-100 overflow-hidden flex flex-col transition active:scale-[0.99]">
+                <div class="relative">
+                    <img src="https://res.cloudinary.com/flashphone/image/upload/c_scale,h_333,w_500/v1781023293/edddc_wusrn3.png" alt="Produk 2" class="w-full h-52 object-cover">
+                    <span class="absolute top-3 left-3 bg-purple-600 text-white text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full shadow-sm">Fitur Pro</span>
                 </div>
-                <div class="p-4 pt-0">
-                    <div class="text-blue-600 font-bold text-xl mb-3">Rp 2.500.000</div>
-                    <button onclick="bukaFormPemesanan('EDC T1', 'Rp 2.500.000')" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-center block cursor-pointer">
+                <div class="p-5 flex-grow">
+                    <h3 class="font-bold text-gray-900 text-lg mb-1 leading-snug">EDC T1</h3>
+                    
+                    <div class="flex items-center gap-1 mb-4">
+                        <span class="text-yellow-400 text-sm">★</span>
+                        <span class="text-xs text-gray-600 font-semibold">4.8</span>
+                        <span class="text-xs text-gray-400">|</span>
+                        <span class="text-xs text-green-600 font-medium bg-green-50 px-2 py-0.5 rounded">400+ Terjual</span>
+                    </div>
+                    
+                    <div class="space-y-2 border-t border-gray-100 pt-3">
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Fitur Utama:</p>
+                        <ul class="text-gray-600 text-sm space-y-1.5">
+                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Cek Saldo.</strong></li>
+                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Tarik Tunai.</strong></li>
+                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Transfer Antar Bank.</strong></li>
+                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Pencairan Dana Bansos/PKH.</strong></li>
+                            <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">•</span> <strong>Transaksi QRIS.</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-gray-50 mt-auto">
+                    <div class="flex flex-col">
+                        <div class="flex items-center gap-1.5 mb-0.5">
+                            <s class="text-xs text-gray-400">Rp 2.999.000</s>
+                            <span class="text-[10px] font-bold text-orange-500 bg-orange-50 px-1.5 py-0.5 rounded-sm">16% OFF</span>
+                        </div>
+                        <div class="text-blue-600 font-bold text-xl tracking-tight">Rp 2.500.000</div>
+                    </div>
+                    <button onclick="bukaFormPemesanan('EDC T1', 'Rp 2.500.000')" class="bg-gray-900 hover:bg-gray-800 text-white font-semibold text-sm py-3 px-5 rounded-xl transition duration-200 shadow-sm cursor-pointer active:bg-black">
                         Beli Sekarang
                     </button>
                 </div>
             </div>
+            
         </div>
     </main>
 
-    <div id="modalOrder" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
-        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" onclick="tutupFormPemesanan()"></div>
-        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-            <div id="modalContent" class="modal-content py-4 text-left px-6">
-                <div class="flex justify-between items-center pb-3 border-b mb-4">
-                    <p class="text-2xl font-bold text-gray-800">Form Pembelian</p>
-                    <div class="modal-close cursor-pointer" onclick="tutupFormPemesanan()">
-                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+    <div id="modalOrder" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-end justify-center z-50 transition-all duration-300">
+        <div class="modal-overlay absolute w-full h-full bg-black/40 backdrop-blur-sm" onclick="tutupFormPemesanan()"></div>
+        <div class="bottom-sheet bg-white w-full max-w-md rounded-t-3xl shadow-2xl z-50 overflow-y-auto max-h-[90vh]">
+            <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto my-3" onclick="tutupFormPemesanan()"></div>
+            
+            <div id="modalContent" class="py-2 text-left px-6 pb-8">
+                <div class="flex justify-between items-center pb-4 border-b border-gray-100 mb-5">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 tracking-tight">Form Pembelian</h3>
+                        <p class="text-xs text-gray-500 mt-0.5">Lengkapi data pengiriman Anda</p>
+                    </div>
+                    <div class="modal-close p-2 bg-gray-100 hover:bg-gray-200 rounded-full cursor-pointer" onclick="tutupFormPemesanan()">
+                        <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </div>
                 </div>
 
                 <div id="areaForm">
-                    <form onsubmit="kirimKeDashboardDanCopy(event)">
-                        <div class="mb-4 bg-gray-50 p-3 rounded-md">
-                            <p class="text-sm text-gray-500">Produk:</p>
-                            <p id="namaProdukModal" class="font-bold text-gray-800"></p>
-                            <p id="hargaProdukModal" class="text-blue-600 font-semibold"></p>
+                    <form onsubmit="kirimKeDashboardDanCopy(event)" class="space-y-4">
+                        <div class="bg-blue-50/70 border border-blue-100/50 p-4 rounded-xl flex justify-between items-center">
+                            <div>
+                                <p class="text-[11px] font-bold text-blue-500 uppercase tracking-wider mb-0.5">Produk Terpilih</p>
+                                <p id="namaProdukModal" class="font-bold text-gray-800 text-base"></p>
+                            </div>
+                            <p id="hargaProdukModal" class="text-blue-600 font-bold text-base bg-white px-3 py-1.5 rounded-lg border border-blue-100 shadow-2xs"></p>
                         </div>
-                        <div class="mb-3">
-                            <label class="block text-gray-700 text-sm font-bold mb-1">Nama Lengkap</label>
-                            <input type="text" id="namaPembeli" required class="shadow border rounded w-full py-1.5 px-3 text-gray-700 focus:outline-none" placeholder="Contoh: Budi Santoso">
+                        
+                        <div>
+                            <label class="block text-gray-700 text-xs font-semibold mb-1.5">Nama Lengkap</label>
+                            <input type="text" id="namaPembeli" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-150" placeholder="Contoh: Budi Santoso">
                         </div>
-                        <div class="mb-3">
-                            <label class="block text-gray-700 text-sm font-bold mb-1">Nomor HP / WhatsApp</label>
-                            <input type="tel" id="hpPembeli" required class="shadow border rounded w-full py-1.5 px-3 text-gray-700 focus:outline-none" placeholder="Contoh: 081234567890">
+                        
+                        <div>
+                            <label class="block text-gray-700 text-xs font-semibold mb-1.5">Nomor HP / WhatsApp</label>
+                            <input type="tel" id="hpPembeli" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-150" placeholder="Contoh: 081234567890">
                         </div>
-                        <div class="mb-3">
-                            <label class="block text-gray-700 text-sm font-bold mb-1">ID Agen</label>
-                            <input type="text" id="idAgen" required class="shadow border rounded w-full py-1.5 px-3 text-gray-700 focus:outline-none" placeholder="Contoh: FL0021">
+                        
+                        <div>
+                            <label class="block text-gray-700 text-xs font-semibold mb-1.5">ID Agen</label>
+                            <input type="text" id="idAgen" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-150" placeholder="Contoh: FL0021">
                         </div>
-                        <div class="mb-3">
-                            <label class="block text-gray-700 text-sm font-bold mb-1">Alamat Lengkap</label>
-                            <textarea id="alamatPembeli" required class="shadow border rounded w-full py-1.5 px-3 text-gray-700 focus:outline-none" rows="2" placeholder="Jl. Anggrek No. 12"></textarea>
+                        
+                        <div>
+                            <label class="block text-gray-700 text-xs font-semibold mb-1.5">Alamat Lengkap</label>
+                            <textarea id="alamatPembeli" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-150" rows="2" placeholder="Jl. Anggrek No. 12, Kec. Klojen..."></textarea>
                         </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-1">Metode Pembayaran</label>
-                            <select id="metodeBayar" class="shadow border rounded w-full py-1.5 px-3 text-gray-700 focus:outline-none">
-                                <option value="Transfer Bank">Transfer Bank</option>
-                            </select>
+                        
+                        <div>
+                            <label class="block text-gray-700 text-xs font-semibold mb-1.5">Metode Pembayaran</label>
+                            <div class="relative">
+                                <select id="metodeBayar" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 appearance-none focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-150">
+                                    <option value="Transfer Bank">Transfer Bank (Nanti)</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex justify-end pt-2">
-                            <button type="button" onclick="tutupFormPemesanan()" class="px-4 bg-gray-200 p-2.5 rounded-lg mr-2 hover:bg-gray-300">Batal</button>
-                            <button type="submit" class="px-4 bg-blue-600 p-2.5 rounded-lg text-white hover:bg-blue-700 font-medium">Konfirmasi</button>
+                        
+                        <div class="flex gap-3 pt-4">
+                            <button type="button" onclick="tutupFormPemesanan()" class="w-1/3 bg-gray-100 p-3.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-200 active:bg-gray-300 transition-all">Batal</button>
+                            <button type="submit" class="w-2/3 bg-blue-600 p-3.5 rounded-xl text-sm font-semibold text-white hover:bg-blue-700 active:bg-blue-800 transition-all shadow-md shadow-blue-200">Konfirmasi</button>
                         </div>
                     </form>
                 </div>
@@ -115,6 +213,7 @@
             produkTerpilih = nama; hargaTerpilih = harga;
             document.getElementById('namaProdukModal').innerText = nama;
             document.getElementById('hargaProdukModal').innerText = harga;
+            
             const modal = document.getElementById('modalOrder');
             modal.classList.remove('opacity-0', 'pointer-events-none');
             document.body.classList.add('modal-active');
@@ -134,18 +233,14 @@
             const alamat = document.getElementById('alamatPembeli').value;
             const metode = document.getElementById('metodeBayar').value;
 
-            // ==========================================
-            // SILAKAN GANTI BAGIAN INI DENGAN DATA ANDA
-            // ==========================================
             const urlForm = "https://docs.google.com/forms/d/e/1FAIpQLScRuBDUrC-_rk3Jdp8BQCDIodhEko8W9G-zYk-G1GWxN_QNDA/formResponse";
             const formData = new FormData();
-            formData.append('entry.1034345429', produkTerpilih); // ID Produk
-            formData.append('entry.1362190117', nama);           // ID Nama
-            formData.append('entry.947035298', hp);             // ID Nomor HP (Baru)
-            formData.append('entry.1367151480', agen);           // ID ID Agen (Baru)
-            formData.append('entry.798374921', alamat);         // ID Alamat
-            formData.append('entry.1479871032', metode);         // ID Metode
-            // ==========================================
+            formData.append('entry.1034345429', produkTerpilih); 
+            formData.append('entry.1362190117', nama);           
+            formData.append('entry.947035298', hp);              
+            formData.append('entry.1367151480', agen);           
+            formData.append('entry.798374921', alamat);         
+            formData.append('entry.1479871032', metode);         
 
             fetch(urlForm, { method: 'POST', body: formData, mode: 'no-cors' });
 
@@ -156,12 +251,15 @@
             }
 
             document.getElementById('areaForm').innerHTML = `
-                <div class="text-center py-4">
-                    <div class="bg-green-100 text-green-800 p-3 rounded-md mb-4 text-xs font-medium">
-                        Berhasil Membuat Pesanan!
+                <div class="text-center py-6">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                        </svg>
                     </div>
-                    <p class="text-xs text-gray-600 mb-4">PESANAN ANDA SUDAH KAMI TERIMA, CS KAMI AKAN SEGERA MENGHUBUNGI ANDA.</p>
-                    <button onclick="tutupFormPemesanan()" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Selesai</button>
+                    <h4 class="text-lg font-bold text-gray-900 mb-1">Berhasil Membuat Pesanan!</h4>
+                    <p class="text-xs text-gray-500 max-w-xs mx-auto mb-6 leading-relaxed">Pesanan Anda sudah kami terima secara sistem. CS kami akan segera menghubungi Anda dalam waktu singkat.</p>
+                    <button onclick="tutupFormPemesanan()" class="w-full bg-gray-900 text-white font-semibold py-3.5 px-4 rounded-xl text-sm transition active:bg-black">Selesai</button>
                 </div>
             `;
         }
