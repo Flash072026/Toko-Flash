@@ -20,20 +20,20 @@
             </a>
         </div>
     </header>
+
     <main class="container mx-auto px-4 py-8">
-        <h2 class="text-xl font-semibold mb-6 text-gray-800">Produk Unggulan</h2>
+        <h2 class="text-xl font-semibold mb-6 text-gray-800">Produk Utama</h2>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            
             <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col justify-between">
                 <img src="https://res.cloudinary.com/flashphone/image/upload/v1781023107/Untitled_fkqulf.png" alt="Produk 1" class="w-full h-48 object-cover">
                 <div class="p-4 flex-grow">
                     <h3 class="font-bold text-gray-900 text-lg mb-1">EDC Saku M3BT</h3>
-                    <p class="text-gray-600 text-sm mb-4">Keunggulan Mesin EDC M3BT Tidak ada target transaksi bulanan Proses pendaftaran dan verifikasi mudah serta cepat Garansi perangkat selama 1 tahun Mendukung transaksi dengan kartu bansos (PKH, BPNT, dll) Didesain tahan panas, cocok untuk penggunaan di luar ruangan Meningkatkan potensi transaksi untuk usaha kecil dan menengah Cocok untuk UMKM, toko kelontong, agen, hingga konter pulsa Didukung oleh layanan pelanggan yang cepat dan responsif.</p>
+                    <p class="text-gray-600 text-sm mb-4">Keunggulan Mesin EDC M3BT Tanpa target bulanan, garansi 1 tahun, support kartu bansos.</p>
                 </div>
                 <div class="p-4 pt-0">
-                    <div class="text-blue-600 font-bold text-xl mb-3">Rp 480.000</div>
-                    <button onclick="bukaFormPemesanan('EDC Saku M3BT', 'Rp 480.000')" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-center block cursor-pointer">
+                    <div class="text-blue-600 font-bold text-xl mb-3">Rp 580.000</div>
+                    <button onclick="bukaFormPemesanan('EDC Saku M3BT', 'Rp 580.000')" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-center block cursor-pointer">
                         Beli Sekarang
                     </button>
                 </div>
@@ -43,7 +43,7 @@
                 <img src="https://res.cloudinary.com/flashphone/image/upload/c_scale,h_333,w_500/v1781023293/edddc_wusrn3.png" alt="Produk 2" class="w-full h-48 object-cover">
                 <div class="p-4 flex-grow">
                     <h3 class="font-bold text-gray-900 text-lg mb-1">EDC T1</h3>
-                    <p class="text-gray-600 text-sm mb-4">Fitur lengkap (Terdapat printer & aplikasi Flash Xtra), Bisa untuk Cek saldo, Tarik Tunai, PKH, Transfer, Tidak ada target bulanan,Harga lebih murah dibanding EDC android lainnya, Rekening penampung bisa pakai rekening apa saja, Registrasi & Aktivasi cepat.</p>
+                    <p class="text-gray-600 text-sm mb-4">Fitur lengkap dengan printer bawaan & aplikasi Flash Xtra. Registrasi cepat.</p>
                 </div>
                 <div class="p-4 pt-0">
                     <div class="text-blue-600 font-bold text-xl mb-3">Rp 2.500.000</div>
@@ -57,12 +57,11 @@
 
     <div id="modalOrder" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
         <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" onclick="tutupFormPemesanan()"></div>
-        
         <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
             <div id="modalContent" class="modal-content py-4 text-left px-6">
                 <div class="flex justify-between items-center pb-3 border-b mb-4">
                     <p class="text-2xl font-bold text-gray-800">Form Pembelian</p>
-                    <div class="modal-close cursor-pointer z-50" onclick="tutupFormPemesanan()">
+                    <div class="modal-close cursor-pointer" onclick="tutupFormPemesanan()">
                         <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                             <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
                         </svg>
@@ -70,33 +69,29 @@
                 </div>
 
                 <div id="areaForm">
-                    <form onsubmit="prosesOrderLengkap(event)">
+                    <form onsubmit="kirimKeDashboardDanCopy(event)">
                         <div class="mb-4 bg-gray-50 p-3 rounded-md">
-                            <p class="text-sm text-gray-500">Produk yang dipilih:</p>
+                            <p class="text-sm text-gray-500">Produk:</p>
                             <p id="namaProdukModal" class="font-bold text-gray-800"></p>
                             <p id="hargaProdukModal" class="text-blue-600 font-semibold"></p>
                         </div>
-
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap</label>
-                            <input type="text" id="namaPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" placeholder="Contoh: Budi Santoso">
+                            <input type="text" id="namaPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none" placeholder="Contoh: Budi Santoso">
                         </div>
-
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2">Alamat Lengkap</label>
-                            <textarea id="alamatPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" rows="3" placeholder="Jl. Anggrek No. 12, Jakarta"></textarea>
+                            <textarea id="alamatPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none" rows="3" placeholder="Jl. Anggrek No. 12"></textarea>
                         </div>
-
                         <div class="mb-6">
                             <label class="block text-gray-700 text-sm font-bold mb-2">Metode Pembayaran</label>
-                            <select id="metodeBayar" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none">
-                                <option value="Transfer Bank (BCA/Mandiri/BNI/BRI)">Transfer Bank</option>
+                            <select id="metodeBayar" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none">
+                                <option value="Transfer Bank">Transfer Bank</option>
                             </select>
                         </div>
-
                         <div class="flex justify-end pt-2">
-                            <button type="button" onclick="tutupFormPemesanan()" class="px-4 bg-gray-200 p-3 rounded-lg text-black hover:bg-gray-300 mr-2 transition duration-200 cursor-pointer">Batal</button>
-                            <button type="submit" class="px-4 bg-blue-600 p-3 rounded-lg text-white hover:bg-blue-700 font-medium transition duration-200 cursor-pointer">Konfirmasi Data</button>
+                            <button type="button" onclick="tutupFormPemesanan()" class="px-4 bg-gray-200 p-3 rounded-lg mr-2 hover:bg-gray-300">Batal</button>
+                            <button type="submit" class="px-4 bg-blue-600 p-3 rounded-lg text-white hover:bg-blue-700 font-medium">Konfirmasi</button>
                         </div>
                     </form>
                 </div>
@@ -105,56 +100,13 @@
     </div>
 
     <script>
-        const NOMOR_CS_TAMPIL = "0878-6028-8354"; 
+        const NOMOR_CS = "0878-6028-8354";
+        let produkTerpilih = "", hargaTerpilih = "";
 
-        let_produkTerpilih = "";
-        let hargaTerpilih = "";
-
-        function bukaFormPemesanan(namaProduk, hargaProduk) {
-            produkTerpilih = namaProduk;
-            hargaTerpilih = hargaProduk;
-
-            document.getElementById('modalContent').innerHTML = `
-                <div class="flex justify-between items-center pb-3 border-b mb-4">
-                    <p class="text-2xl font-bold text-gray-800">Form Pembelian</p>
-                    <div class="modal-close cursor-pointer z-50" onclick="tutupFormPemesanan()">
-                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-                        </svg>
-                    </div>
-                </div>
-                <div id="areaForm">
-                    <form onsubmit="prosesOrderLengkap(event)">
-                        <div class="mb-4 bg-gray-50 p-3 rounded-md">
-                            <p class="text-sm text-gray-500">Produk yang dipilih:</p>
-                            <p id="namaProdukModal" class="font-bold text-gray-800"></p>
-                            <p id="hargaProdukModal" class="text-blue-600 font-semibold"></p>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap</label>
-                            <input type="text" id="namaPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" placeholder="Contoh: Budi Santoso">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Alamat Lengkap</label>
-                            <textarea id="alamatPembeli" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" rows="3" placeholder="Jl. Anggrek No. 12, Jakarta"></textarea>
-                        </div>
-                        <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Metode Pembayaran</label>
-                            <select id="metodeBayar" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none">
-                                <option value="Transfer Bank (BCA/Mandiri/BNI/BRI)">Transfer Bank</option>
-                            </select>
-                        </div>
-                        <div class="flex justify-end pt-2">
-                            <button type="button" onclick="tutupFormPemesanan()" class="px-4 bg-gray-200 p-3 rounded-lg text-black hover:bg-gray-300 mr-2 transition duration-200 cursor-pointer">Batal</button>
-                            <button type="submit" class="px-4 bg-blue-600 p-3 rounded-lg text-white hover:bg-blue-700 font-medium transition duration-200 cursor-pointer">Konfirmasi Data</button>
-                        </div>
-                    </form>
-                </div>
-            `;
-
-            document.getElementById('namaProdukModal').innerText = namaProduk;
-            document.getElementById('hargaProdukModal').innerText = hargaProduk;
-
+        function bukaFormPemesanan(nama, harga) {
+            produkTerpilih = nama; hargaTerpilih = harga;
+            document.getElementById('namaProdukModal').innerText = nama;
+            document.getElementById('hargaProdukModal').innerText = harga;
             const modal = document.getElementById('modalOrder');
             modal.classList.remove('opacity-0', 'pointer-events-none');
             document.body.classList.add('modal-active');
@@ -166,62 +118,43 @@
             document.body.classList.remove('modal-active');
         }
 
-        function prosesOrderLengkap(event) {
-            event.preventDefault(); 
-
+        function kirimKeDashboardDanCopy(event) {
+            event.preventDefault();
             const nama = document.getElementById('namaPembeli').value;
             const alamat = document.getElementById('alamatPembeli').value;
             const metode = document.getElementById('metodeBayar').value;
 
-            const teksPesan = 
-                `FORMAT ORDERAN BARU\n` +
-                `---------------------\n` +
-                `Produk: ${produkTerpilih}\n` +
-                `Harga: ${hargaTerpilih}\n\n` +
-                `Nama Pembeli: ${nama}\n` +
-                `Alamat: ${alamat}\n` +
-                `Pembayaran: ${metode}`;
+            // ==========================================
+            // SILAKAN GANTI BAGIAN INI DENGAN DATA ANDA
+            // ==========================================
+            const urlForm = "https://docs.google.com/forms/d/e/ID_FORM_ANDA/formResponse";
+            const formData = new FormData();
+            formData.append('entry.1034345429', produkTerpilih); // Ganti XXXXX dengan ID Produk Anda
+            formData.append('entry.1362190117', nama);           // Ganti XXXXX dengan ID Nama Anda
+            formData.append('entry.798374921', alamat);         // Ganti XXXXX dengan ID Alamat Anda
+            formData.append('entry.1479871032', metode);         // Ganti XXXXX dengan ID Metode Anda
+            // ==========================================
 
-            const areaForm = document.getElementById('areaForm');
-            areaForm.innerHTML = `
-                <div class="text-center py-2">
-                    <div class="bg-blue-50 text-blue-800 p-3 rounded-md mb-4 text-xs font-medium text-left border border-blue-200">
-                        Format pesanan Anda sudah dibuat. Silakan klik tombol biru untuk menyalin data, lalu kirim ke WhatsApp kami.
-                    </div>
-                    
-                    <p class="font-bold text-gray-700 mb-1 text-left text-xs">Data Pesanan Anda:</p>
-                    <textarea id="teksOrderan" readonly class="w-full h-36 p-2 border rounded-md bg-gray-50 text-xs font-mono mb-3 focus:outline-none">${teksPesan}</textarea>
-                    
-                    <button onclick="salinFormatLengkap()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-200 cursor-pointer text-sm mb-4 shadow-sm">
-                        Klik Disini Untuk Salin Pesanan
-                    </button>
+            // Kirim data secara background tanpa pindah halaman
+            fetch(urlForm, { method: 'POST', body: formData, mode: 'no-cors' });
 
-                    <div class="bg-gray-50 p-3 rounded-lg mb-4 text-center border border-dashed border-gray-300">
-                        <p class="text-xs text-gray-500 font-bold">Kirim ke WhatsApp CS kami:</p>
-                        <p class="text-xl font-bold text-green-600 tracking-wider my-1">${NOMOR_CS_TAMPIL}</p>
-                        <p class="text-[10px] text-gray-400">Silakan buka WA, buat chat baru ke nomor di atas, lalu Tempel (Paste) pesannya.</p>
-                    </div>
-
-                    <button onclick="tutupFormPemesanan()" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition duration-200 cursor-pointer text-xs">
-                        Selesai & Kembali ke Katalog
-                    </button>
-                </div>
-            `;
-        }
-
-        function salinFormatLengkap() {
-            const copyText = document.getElementById("teksOrderan");
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); 
+            // Salin format teks sebagai cadangan manual ke WA jika pembeli butuh
+            const teksPesan = `FORMAT ORDERAN BARU\nProduk: ${produkTerpilih}\nHarga: ${hargaTerpilih}\nNama: ${nama}\nAlamat: ${alamat}\nPembayaran: ${metode}`;
             
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(copyText.value).then(() => {
-                    alert("Format pesanan LENGKAP berhasil disalin!\n\nSilakan buka WhatsApp Anda, lalu tempel (paste) pesannya ke CS Flash Xtra: " + NOMOR_CS_TAMPIL);
-                });
-            } else {
-                document.execCommand("copy");
-                alert("Format pesanan LENGKAP berhasil disalin!\n\nSilakan buka WhatsApp Anda, lalu tempel (paste) pesannya ke CS Flash Xtra: " + NOMOR_CS_TAMPIL);
+                navigator.clipboard.writeText(teksPesan);
             }
+
+            // Tampilkan pesan sukses di modal
+            document.getElementById('areaForm').innerHTML = `
+                <div class="text-center py-4">
+                    <div class="bg-green-100 text-green-800 p-3 rounded-md mb-4 text-xs font-medium">
+                        Pesanan Berhasil Dikirim ke Sistem Dashboard Admin!
+                    </div>
+                    <p class="text-xs text-gray-600 mb-4">Format teks cadangan juga telah disalin otomatis ke memori HP.</p>
+                    <button onclick="tutupFormPemesanan()" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Selesai</button>
+                </div>
+            `;
         }
     </script>
 </body>
